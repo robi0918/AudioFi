@@ -1,0 +1,123 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 252 87% 67%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 20% 9.8%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 252 87% 67%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Custom Classes */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+}
+
+.audio-card {
+  @apply bg-secondary rounded-xl p-4 transition-all duration-300 hover:shadow-md hover:shadow-primary/20 border border-gray-800;
+}
+
+.audio-card:hover {
+  @apply transform hover:-translate-y-1;
+}
+
+.audio-gradient {
+  @apply bg-gradient-to-br from-primary/20 to-accent/20;
+}
+
+.music-progress {
+  @apply h-1 bg-muted rounded-full overflow-hidden;
+}
+
+.music-progress-filled {
+  @apply h-full bg-gradient-to-r from-primary to-accent;
+}
+
+.animate-wave {
+  animation: wave 1.2s linear infinite;
+}
+
+@keyframes wave {
+  0% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
+  100% { transform: scaleY(0.5); }
+}
+
+.chain-pill {
+  @apply px-2 py-1 rounded-full text-xs font-medium bg-muted text-white border border-gray-800;
+}
+
+.slider-thumb {
+  @apply appearance-none w-4 h-4 rounded-full bg-primary border-none cursor-pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply slider-thumb;
+}
+
+input[type="range"]::-moz-range-thumb {
+  @apply slider-thumb;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 640px) {
+  .audio-card {
+    @apply p-3;
+  }
+  
+  .chain-pill {
+    @apply px-1.5 py-0.5 text-[10px];
+  }
+}
+
+/* Fix for mobile Safari audio playback */
+audio {
+  display: none;
+}
+
+/* Ensure modals are visible on mobile */
+.fixed.inset-0 {
+  @apply z-50;
+}
+
