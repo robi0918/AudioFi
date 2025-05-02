@@ -5,7 +5,7 @@ import {
   ToggleWalletVisibilityButton,
   WalletConnectRoundedButton,
 } from '@/components/features/connect'
-import { SendUserOpContext } from '@/contexts/SendUserOpContext'
+import { SendUserOpContext } from '@/contexts'
 import { useSignature } from '@/hooks'
 import { CustomConnectButtonProps } from '@/types'
 
@@ -36,9 +36,13 @@ const CustomConnectButton: React.FC<CustomConnectButtonProps> = ({ mode }) => {
               (!authenticationStatus || authenticationStatus === 'authenticated'),
           )
 
-          if (isConnected !== connected) {
+          // if (isConnected !== connected) {
+          //   setIsConnected(connected)
+          // }
+
+          useEffect(() => {
             setIsConnected(connected)
-          }
+          }, [connected])
 
           if (!ready) return null
           if (chain?.unsupported) {

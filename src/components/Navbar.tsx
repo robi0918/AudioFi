@@ -10,12 +10,8 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { CustomConnectButton } from './features/connect';
-
 
 const Navbar = () => {
-
-  const mode: "button" | "sidebar" = "button";
   
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -92,10 +88,9 @@ const Navbar = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>AF</AvatarFallback>
             </Avatar>
-            <Button className="bg-blue-600 text-[13px]">
+            {/* <Button className="bg-blue-600 text-[13px]">
               Connect Wallet
-            </Button>
-            <CustomConnectButton mode = {mode} />
+            </Button> */}
             <div className="md:hidden">
               <Button
                 variant="ghost"

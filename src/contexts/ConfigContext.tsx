@@ -57,7 +57,6 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children, config
   const { clientId, uiConfig, loginConfig } = chainConfig.web3auth
 
   const hasWeb3AuthConfig = Boolean(chainConfig.web3auth.clientId)
-
   return (
     <ConfigContext.Provider
       value={{
