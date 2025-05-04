@@ -39,7 +39,7 @@ const ToggleWalletVisibilityButton: React.FC<ToggleWalletVisibilityButtonProps> 
 
   return (
     <div
-      className={`w-12 ${showButtons ? 'h-[500px]' : 'h-[100px]'} bg-black/90 backdrop-blur-sm rounded-lg flex flex-col items-center transition-all duration-300`}
+      className={`w-12 ${showButtons ? 'h-[500px]' : 'h-[100px]'} bg-black/90 pointer-events-auto z-50 backdrop-bl-sm rounded-lg flex flex-col items-center transition-all duration-300 wallet-panel`}
     >
       <div className='flex-1 flex flex-col items-center gap-6 pt-4'>
         <div className='w-8 h-8'>
