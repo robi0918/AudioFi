@@ -21,7 +21,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
   }, [isCompleted])
 
   return (
-    <div className='absolute inset-0 flex flex-col items-center justify-center bg-bg-secondary bg-opacity-80 z-50 rounded-md'>
+    <div className='absolute inset-0 flex flex-col items-center justify-center bg-slate-200 bg-opacity-80 z-50 rounded-md'>
       <div className='w-[100px] h-[100px] mb-4'>
         {isCompleted ? (
           userOpResult ? (
