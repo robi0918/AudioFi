@@ -17,6 +17,7 @@ export const screens = {
   TOKENDETAIL: 'TOKENDETAIL',
   NEROTOKENDETAIL: 'NEROTOKENDETAIL',
   SENDUSEROP: 'SENDUSEROP',
+  STAKEDETAIL: 'STAKEDETAIL'
 } as const
 
 export type Screen = (typeof screens)[keyof typeof screens]
