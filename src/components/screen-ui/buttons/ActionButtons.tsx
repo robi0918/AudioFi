@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { AiFillCaretLeft } from 'react-icons/ai'
 import { Button } from '@/components/screen-ui/buttons'
 import { ActionButtonsProps } from '@/types'
+
+
+
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
   onBack,
@@ -15,9 +18,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   cancelText = 'Cancel',
   confirmDisabled = false,
 }) => {
+
   if (onBack && onNext) {
     return (
-      <div className='flex justify-between mt-4'>
+      <div className='absolute bottom-[-30px] left-[-30px] right-[-20px] flex justify-between p-10'>
         <Button
           onClick={onBack}
           variant='text'
@@ -41,7 +45,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   if (onCancel && onConfirm) {
     return (
-      <div className='flex justify-between mt-4'>
+      <div className='absolute bottom-[-30px] left-[-30px] right-[-20px] flex justify-between p-10'>
         <Button onClick={onCancel} variant='secondary' className='px-6 py-2'>
           {cancelText}
         </Button>
