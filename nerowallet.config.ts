@@ -1,3 +1,4 @@
+import { WEB3AUTH_SAPPHIRE_NETWORK } from '@web3auth/auth-adapter'
 import NEROLogoSquareIcon from './src/assets/NERO-Logo-square.svg'
 import { WEB3AUTH_NETWORK_TYPE } from '@web3auth/base'
 
@@ -14,7 +15,7 @@ const config = {
       chain: {
         name: 'NERO Testnet',
         logo: NEROLogoSquareIcon,
-        networkType: 'testnet' as WEB3AUTH_NETWORK_TYPE,
+        networkType: WEB3AUTH_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET,
         rpc: 'https://rpc-testnet.nerochain.io',
         chainId: 689,
         explorer: 'https://testnet.neroscan.io',
@@ -37,7 +38,7 @@ const config = {
       },
       web3auth: {
         clientId: import.meta.env.VITE_TESTNET_WEB3AUTH_ID ?? '',
-        network: 'testnet',
+        network: 'sapphire_devnet',
         uiConfig: {
           appName: 'NERO',
           mode: 'light',
@@ -63,6 +64,12 @@ const config = {
             typeOfLogin: 'facebook',
             clientId: import.meta.env.VITE_FACEBOOK_CLIENT_ID,
           },
+          discord: {
+            name: 'discord',
+            verifier: 'NeroTest-discord-Maintest',
+            typeOfLogin: 'discord',
+            clientId: import.meta.env.VITE_DISCORD_CLIENT_ID,
+          },
         },
       },
     },
@@ -70,7 +77,7 @@ const config = {
       chain: {
         name: 'NERO Mainnet',
         logo: NEROLogoSquareIcon,
-        networkType: 'mainnet' as WEB3AUTH_NETWORK_TYPE ,
+        networkType: WEB3AUTH_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET ,
         rpc: 'https://rpc.nerochain.io',
         chainId: 1689,
         explorer: 'https://neroscan.io',
@@ -93,7 +100,7 @@ const config = {
       },
       web3auth: {
         clientId: import.meta.env.VITE_MAINNET_WEB3AUTH_ID ?? '',
-        network: 'mainnet',
+        network: WEB3AUTH_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET,
         uiConfig: {
           appName: 'NERO',
           mode: 'light',
@@ -118,6 +125,12 @@ const config = {
             verifier: 'NeroTest-Facebook-Maintest',
             typeOfLogin: 'facebook',
             clientId: import.meta.env.VITE_FACEBOOK_CLIENT_ID,
+          },
+          discord: {
+            name: 'discord',
+            verifier: 'NeroTest-discord-Maintest',
+            typeOfLogin: 'discord',
+            clientId: import.meta.env.VITE_DISCORD_CLIENT_ID,
           },
         },
       },

@@ -116,7 +116,7 @@ audio {
   display: none;
 }
 
-/* Ensure modals are visible on mobile */
+Ensure modals are visible on mobile
 .fixed.inset-0 {
   @apply z-50;
 }

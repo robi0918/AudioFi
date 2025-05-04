@@ -3,6 +3,7 @@ import { CustomConnectButton } from '@/components/features/connect'
 import { SendUserOpContext } from '@/contexts'
 import { useScreenManager } from '@/hooks'
 import ScreenRenderer from '@/routes/ScreenRenderer'
+import { Dialog, DialogContent } from './components/ui/dialog'
 
 interface AppProps {
   mode?: 'sidebar' | 'button'
@@ -16,9 +17,8 @@ function Sample({ mode }: AppProps) {
     <div>
       {mode === 'sidebar' ? (
         <div
-          className={`fixed transition-transform duration-300 ease-in-out transform ${
-            isWalletPanel ? 'translate-x-0' : 'translate-x-[350px]'
-          }`}
+          className={`fixed transition-transform duration-300 ease-in-out transform ${isWalletPanel ? 'translate-x-0' : 'translate-x-[350px]'
+            }`}
           style={{ right: 0, top: '50px' }}
         >
           <div className='absolute -left-12'>
@@ -43,7 +43,7 @@ function Sample({ mode }: AppProps) {
                 width: '350px',
               }}
             >
-              <div className='bg-bg-primary rounded-md'>
+              <div className='bg-bg-primary fixed z-50  rounded-md'>
                 <ScreenRenderer currentScreen={currentScreen} />
               </div>
             </div>

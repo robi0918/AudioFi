@@ -128,6 +128,12 @@ export interface ConfigContextProps {
       typeOfLogin: string
       clientId: string
     }
+    discord: {
+      name: string
+      verifier: string
+      typeOfLogin: string
+      clientId: string
+    }
   }
   currentNetworkIndex: number
   switchNetwork: () => void

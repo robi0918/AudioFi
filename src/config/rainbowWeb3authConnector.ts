@@ -40,6 +40,12 @@ interface Web3AuthConfig {
         typeOfLogin: string
         clientId: string
       }
+      discord: {
+        name: string
+        verifier: string
+        typeOfLogin: string
+        clientId: string
+      }
     }
   }
 }
@@ -107,6 +113,12 @@ export const rainbowWeb3AuthConnector = ({
               verifier: walletConfig.loginConfig.facebook.verifier, // Pass the Verifier name here
               typeOfLogin: 'facebook', // Pass on the login provider of the verifier you've created
               clientId: walletConfig.loginConfig.facebook.clientId, // Pass on the Google `Client ID` here
+            },
+            discord: {
+              name: walletConfig.loginConfig.discord.name,
+              verifier: walletConfig.loginConfig.discord.verifier, // Pass the Verifier name here
+              typeOfLogin: 'discord', // Pass on the login provider of the verifier you've created
+              clientId: walletConfig.loginConfig.discord.clientId, // Pass on the Google `Client ID` here
             },
           },
         },

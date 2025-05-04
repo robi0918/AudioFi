@@ -60,6 +60,12 @@ export interface WalletConfig {
           typeOfLogin: string
           clientId: string
         }
+        discord: {
+          name: string
+          verifier: string
+          typeOfLogin: string
+          clientId: string
+        }
       }
     }
   }>
