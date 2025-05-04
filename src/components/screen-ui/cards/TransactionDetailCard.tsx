@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, BaseCardItem } from '@/components/screen-ui'
 import { TransactionDetailCardProps } from '@/types'
 import { truncateAddress } from '@/utils'
+import { PaymasterPanel } from '@/components/features'
 
 const TransactionDetailCard: React.FC<TransactionDetailCardProps> = ({
   from,
@@ -11,6 +12,7 @@ const TransactionDetailCard: React.FC<TransactionDetailCardProps> = ({
   networkType,
   header,
   amount,
+  title,
   children,
 }) => {
   return (
@@ -23,7 +25,7 @@ const TransactionDetailCard: React.FC<TransactionDetailCardProps> = ({
         )}
       </div>
       {amount && <div className='border-b-[1px] py-2 px-4'>{amount}</div>}
-      <div className='flex flex-col py-4 space-y-4 px-4'>
+      {title === 'Send Detail' && <div className='flex flex-col py-4 space-y-4 px-4'>
         <BaseCardItem
           label='Network'
           value={
@@ -43,7 +45,10 @@ const TransactionDetailCard: React.FC<TransactionDetailCardProps> = ({
             </div>
           }
         />
-      </div>
+      </div>}
+      {title === 'Stake request' && <div className='flex flex-col py-4 space-y-4 px-4'>
+        <PaymasterPanel />
+      </div>}
     </Card>
   )
 }
