@@ -1,5 +1,6 @@
 export * from './useSendUserOp'
 export * from './useMultiSender'
 export * from './useAAtransfer'
+export * from './useAAstake'
 export * from './useConfig'
 export * from './useEstimateUserOpFee'

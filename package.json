@@ -75,6 +75,7 @@
     "vaul": "^0.9.3",
     "viem": "^2.28.1",
     "vite-plugin-node-polyfills": "^0.23.0",
+    "userop": "https://github.com/nerochain/aa-userop-sdk.git#d33bde2ba69044a367464e8f00fe0c5839e640b3",
     "wagmi": "^2.15.1",
     "zod": "^3.23.8"
   },

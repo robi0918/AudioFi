@@ -10,7 +10,6 @@ import { ReceivePanel } from '@/components/screens/receive'
 import { SendPanel } from '@/components/screens/Send'
 import { SendUserOpPanel } from '@/components/screens/Send'
 import { SettingPanel } from '@/components/screens/setting'
-import { StakeDetail } from '@/components/screens/Stake'
 import { TokenIndex } from '@/components/screens/Token'
 import { screens, Screen } from '@/types'
 
@@ -54,8 +53,6 @@ function ScreenRenderer({ currentScreen }: ScreenRendererProps) {
       return <NEROTokenDetail />
     case screens.SENDUSEROP:
       return <SendUserOpPanel />
-    case screens.STAKEDETAIL:
-      return <StakeDetail />
     default:
       return <WalletPanel />
   }

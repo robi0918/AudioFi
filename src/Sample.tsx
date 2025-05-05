@@ -3,7 +3,6 @@ import { CustomConnectButton } from '@/components/features/connect'
 import { SendUserOpContext } from '@/contexts'
 import { useScreenManager } from '@/hooks'
 import ScreenRenderer from '@/routes/ScreenRenderer'
-import { Dialog, DialogContent } from './components/ui/dialog'
 
 interface AppProps {
   mode?: 'sidebar' | 'button'

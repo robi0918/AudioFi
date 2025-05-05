@@ -56,6 +56,7 @@ const SendPanel: React.FC = () => {
     setIsTokenModalOpen(false)
   }
 
+
   const handleHomeClick = () => {
     clearToken()
     clearRecipientAddress()

@@ -116,6 +116,7 @@ export const useAAtransfer = () => {
             erc20Abi,
             signer,
           )
+
           const currentAllowance = await paymasterTokenInterface.allowance(
             await signer.getAddress(),
             tokenPaymaster,

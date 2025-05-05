@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Play, Pause, MoreHorizontal, GripVertical, BarChart3, Coins, TrendingUp, Users, CoinsIcon } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -12,8 +12,13 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
-import { SendUserOpContext } from '@/contexts'
-import { useSignature } from '@/hooks'
+import { SendUserOpContext, SendContext } from '@/contexts'
+import { useResetContexts, useScreenManager, useSignature, useSendUserOp, useEthersSigner } from '@/hooks'
+import { screens } from '@/types'
+import { CONTRACT_ADDRESSES } from '@/config/myContractAddress'
+import AudioStakingAbi from '@/abis/AudioStaking/AudioStaking.json'
+import AudioTokenAbi from '@/abis/AudioFiToken/AudioFiToken.json'
+import { ethers } from 'ethers';
 
 interface TrackCardProps {
   track: {
@@ -54,20 +59,50 @@ const TrackCard: React.FC<TrackCardProps> = ({
   isPlaying = false,
   isCurrentTrack = false
 }) => {
+  const { navigateTo } = useScreenManager()
+  const {
+    recipientAddress,
+    setRecipientAddress,
+    clearRecipientAddress,
+    selectedToken,
+    setSelectedToken,
+    clearSelectedToken,
+    setBalance,
+    clearBalance,
+    isTransferEnabled,
+  } = useContext(SendContext)!
+  const { resetAllContexts } = useResetContexts()
   const { isWalletPanel, setIsWalletPanel } = useContext(SendUserOpContext)!
-  const { AAaddress } = useSignature()
+
+  const handleNavigation = (action: () => void) => {
+    if (!isWalletPanel && AAaddress.length == 42) {
+      setIsWalletPanel(true);
+    }
+    resetAllContexts()
+    action()
+  }
+  const { AAaddress, isConnected } = useSignature();
+  const signer = useEthersSigner()
+  const { execute, executeBatch, waitForUserOpResult } = useSendUserOp()
 
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [showTrackDetails, setShowTrackDetails] = useState(false);
   const [stakeAmount, setStakeAmount] = useState("100");
   const [stakeTab, setStakeTab] = useState<string>("stake");
   const [userStake, setUserStake] = useState({
-    amount: 0,
+    amount: '0',
     roi: "+0.0%",
     earningsToDate: "0",
     position: "0",
     share: "0%"
   });
+  const [stakeTrigger, setStakeTrigger] = useState(false)
+
+  const [totalStaked, setTotalStaked] = useState<string>("0");
+  const [totalStaker, setTotalStaker] = useState<string>("0");
+  const [myBalance, setMyBalance] = useState<string>('0');
+
   const isMobile = useIsMobile();
 
   const handlePlay = () => {
@@ -88,37 +123,190 @@ const TrackCard: React.FC<TrackCardProps> = ({
     toast.success("Track added to playlist!");
   };
 
-  const handleStakeSubmit = () => {
-    if (stakeTab === "stake") {
-      if (AAaddress.length == 42) {
-        setIsWalletPanel(true);
+  useEffect(() => {
+    const fetchTotalStaker = async () => {
+      if(!signer) return
+      if (!isConnected) {
+        toast.warning('Connect the your wallet')
+        return
       }
+      try {
+        const stakingContract = new ethers.Contract(
+          CONTRACT_ADDRESSES.STAKING_CONTRACT_ADDRESS,
+          AudioStakingAbi,
+          signer
+        )
+
+        const rawTotalStaked = await stakingContract.totalStaked(track.id);
+        setTotalStaked(ethers.utils.formatEther(rawTotalStaked));
+        const rawTotalStaker = await stakingContract.totalStakers(track.id);
+        setTotalStaker(rawTotalStaker)
+
+      } catch (err) {
+        console.error("Failed to fetch totalStaked and staker", err);
+      }
+    }
+
+    const fetchBalance = async () => {
+      if(!signer) return
+      const tokenContract = new ethers.Contract(
+        CONTRACT_ADDRESSES.AUDIOFI_TOKEN_ADDRESS,
+        AudioTokenAbi,
+        signer
+      );
+
+      const rawBalance = await tokenContract.balanceOf(AAaddress);
+      const formatted = ethers.utils.formatEther(rawBalance);
+      setMyBalance(parseFloat(formatted).toFixed(2))
+
+    }
+
+    fetchBalance()
+    fetchTotalStaker()
+
+  }, [track.id, AAaddress, stakeTrigger])
+
+  useEffect(() => {
+    const fetchStakeInfo = async () => {
+      if(!signer) return
+      const contract = new ethers.Contract(CONTRACT_ADDRESSES.STAKING_CONTRACT_ADDRESS, AudioStakingAbi, signer);
+      // Fetch the staked amount and reward debt for the user on this contentId
+      const stakeInfo = await contract.stakes(track.id, AAaddress);
+      const stakedFormatted = ethers.utils.formatEther(stakeInfo.amount); // Format the amount
+
+      // Fetch the reward based on the performance score
+      const calculatedReward = await contract.calculateReward(track.id, AAaddress);
+      const rewardFormatted = ethers.utils.formatEther(calculatedReward); // Format reward
+      setUserStake({
+        amount: parseFloat(stakedFormatted).toFixed(2),
+        roi: "+5.2%",
+        earningsToDate: parseFloat(rewardFormatted).toFixed(2) + " AFI",
+        position: parseFloat(stakedFormatted).toFixed(2) + " AFI",
+        share: ((parseFloat(stakedFormatted) / parseFloat(totalStaked) * 100)).toFixed(4) + "%"
+      });
+    }
+    fetchStakeInfo()
+  }, [stakeTrigger, AAaddress, track.id, totalStaked])
+
+  const handleStakeSubmit = async () => {
+    if (stakeTab === "stake") {
+      // if (AAaddress.length == 42) {
+      //   setIsWalletPanel(true);
+      //   handleNavigation(() => navigateTo(screens.STAKEDETAIL))
+      //   setRecipientAddress(CONTRACT_ADDRESSES.STAKING_CONTRACT_ADDRESS);
+      //   setSelectedToken({
+      //     symbol: "AFT",
+      //     balance: stakeAmount,
+      //     contractAddress: CONTRACT_ADDRESSES.AUDIOFI_TOKEN_ADDRESS,
+      //     isNative: false,
+      //     type: 'ERC-20',
+      //     decimals: '18',
+      //     name: 'AudioFi Token',
+      //   })
+      //   setBalance(stakeAmount)
+      // }
+      if (!isConnected) {
+        alert('Please connect your wallet first');
+        return;
+      }
+
+      setRecipientAddress(CONTRACT_ADDRESSES.STAKING_CONTRACT_ADDRESS);
+      setSelectedToken({
+        symbol: "AFT",
+        balance: stakeAmount,
+        contractAddress: CONTRACT_ADDRESSES.AUDIOFI_TOKEN_ADDRESS,
+        isNative: false,
+        type: 'ERC-20',
+        decimals: '18',
+        name: 'AudioFi Token',
+      })
+      setBalance(stakeAmount)
+
+      setIsLoading(true);
+
+      try {
+        await executeBatch([
+          {
+            function: 'approve',
+            contractAddress: CONTRACT_ADDRESSES.AUDIOFI_TOKEN_ADDRESS,
+            abi: AudioTokenAbi,
+            params: [CONTRACT_ADDRESSES.STAKING_CONTRACT_ADDRESS, ethers.utils.parseEther(stakeAmount)],
+            value: 0,
+          },
+          {
+            function: 'stake',
+            contractAddress: CONTRACT_ADDRESSES.STAKING_CONTRACT_ADDRESS,
+            abi: AudioStakingAbi,
+            params: [parseInt(track.id), ethers.utils.parseEther(stakeAmount)],
+            value: 0,
+          },
+        ]);
+
+        const result = await waitForUserOpResult();
+        if (result.result === true) {
+          toast.success(`Staked ${stakeAmount} AFI on ${track.title}!`);
+        } else if (result.transactionHash) {
+          toast.error('Staking Failed!')
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // setTxStatus('An error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+
       // Simulate staking
       const newAmount = userStake.amount + parseInt(stakeAmount);
-      setUserStake({
-        amount: newAmount,
-        roi: "+5.2%",
-        earningsToDate: (newAmount * 0.052).toFixed(2) + " AFI",
-        position: newAmount.toString() + " AFI",
-        share: ((newAmount / parseInt((track.totalStaked || "0").replace(/[^0-9]/g, ''))) * 100).toFixed(4) + "%"
-      });
-      toast.success(`Staked ${stakeAmount} AFI on ${track.title}!`);
+      setStakeTrigger( prev => !prev)
+
     } else {
       // Unstake
-      if (parseInt(stakeAmount) > userStake.amount) {
+      if (parseInt(stakeAmount) > parseFloat(userStake.amount)) {
         toast.error("You don't have enough staked tokens");
         return;
       }
 
-      const newAmount = userStake.amount - parseInt(stakeAmount);
-      setUserStake({
-        amount: newAmount,
-        roi: newAmount === 0 ? "+0.0%" : userStake.roi,
-        earningsToDate: newAmount === 0 ? "0" : (newAmount * 0.052).toFixed(2) + " AFI",
-        position: newAmount.toString() + " AFI",
-        share: newAmount === 0 ? "0%" : ((newAmount / parseInt((track.totalStaked || "0").replace(/[^0-9]/g, ''))) * 100).toFixed(4) + "%"
-      });
-      toast.success(`Unstaked ${stakeAmount} AFI from ${track.title}!`);
+      setRecipientAddress(AAaddress);
+      setSelectedToken({
+        symbol: "AFT",
+        balance: userStake.amount,
+        contractAddress: CONTRACT_ADDRESSES.AUDIOFI_TOKEN_ADDRESS,
+        isNative: false,
+        type: 'ERC-20',
+        decimals: '18',
+        name: 'AudioFi Token',
+      })
+      setBalance(userStake.amount)
+
+      setIsLoading(true);
+
+      try {
+        await execute(
+          {
+            function: 'unstake',
+            contractAddress: CONTRACT_ADDRESSES.STAKING_CONTRACT_ADDRESS,
+            abi: AudioStakingAbi,
+            params: [parseInt(track.id)],
+            value: 0,
+          }
+        );
+
+        const result = await waitForUserOpResult();
+
+        if (result.result === true) {
+          setStakeTab('stake')
+          toast.success(`Unstaked ${stakeAmount} AFI on ${track.title}!`);
+        } else if (result.transactionHash) {
+          toast.error('Unstaking Failed!')
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // setTxStatus('An error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+
+      setStakeTrigger( prev => !prev)
     }
   };
 
@@ -365,7 +553,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
                   <div className="text-xs text-gray-400 mb-1">Total Stakers</div>
                   <div className="flex items-center">
                     <Users className="h-4 w-4 text-primary mr-1" />
-                    <span className="font-medium">{track.stakers?.toLocaleString() || 'N/A'}</span>
+                    <span className="font-medium">{totalStaker?.toLocaleString() || 'N/A'}</span>
                   </div>
                 </div>
 
@@ -373,7 +561,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
                   <div className="text-xs text-gray-400 mb-1">Total Staked</div>
                   <div className="flex items-center">
                     <Coins className="h-4 w-4 text-primary mr-1" />
-                    <span className="font-medium">{track.totalStaked || 'N/A'}</span>
+                    <span className="font-medium">{totalStaked || 'N/A'}</span>
                   </div>
                 </div>
               </div>
@@ -382,7 +570,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
             <div className="flex flex-col">
               <h3 className="text-lg font-medium mb-4">Your Position</h3>
 
-              {userStake.amount > 0 ? (
+              {parseFloat(userStake.amount) > 0 ? (
                 <div className="bg-secondary rounded-lg p-4 mb-4">
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
@@ -409,7 +597,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
                       <span>{userStake.amount} AFI</span>
                     </div>
                     <Progress
-                      value={(userStake.amount / parseInt((track.totalStaked || "1").replace(/[^0-9]/g, ''))) * 100}
+                      value={(parseFloat(userStake.amount) / parseFloat(totalStaked)) * 100}
                       className="h-2"
                     />
                   </div>
@@ -424,14 +612,14 @@ const TrackCard: React.FC<TrackCardProps> = ({
               <Tabs defaultValue="stake" className="flex-1" onValueChange={setStakeTab}>
                 <TabsList className="bg-muted/40 grid w-full grid-cols-2">
                   <TabsTrigger value="stake">Stake</TabsTrigger>
-                  <TabsTrigger value="unstake" disabled={userStake.amount === 0}>Unstake</TabsTrigger>
+                  <TabsTrigger value="unstake" disabled={parseFloat(userStake.amount) == 0}>Unstake</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="stake" className="mt-4 space-y-4">
                   <div>
                     <div className="flex justify-between mb-1">
                       <div className="text-sm font-medium">Stake Amount (AFI)</div>
-                      <div className="text-sm text-gray-400">Balance: 2,500 AFI</div>
+                      <div className="text-sm text-gray-400">Balance: {myBalance} AFI</div>
                     </div>
 
                     <div className="flex space-x-2">
@@ -444,7 +632,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
                       <Button variant="outline" size="sm" className="whitespace-nowrap" onClick={() => setStakeAmount("100")}>
                         Min
                       </Button>
-                      <Button variant="outline" size="sm" className="whitespace-nowrap" onClick={() => setStakeAmount("2500")}>
+                      <Button variant="outline" size="sm" className="whitespace-nowrap" onClick={() => setStakeAmount(myBalance)}>
                         Max
                       </Button>
                     </div>
@@ -458,9 +646,9 @@ const TrackCard: React.FC<TrackCardProps> = ({
                     </div>
                   </div>
 
-                  <Button className="w-full" onClick={handleStakeSubmit}>
+                  <Button className="w-full" onClick={handleStakeSubmit} disabled={isLoading}>
                     <Coins className="mr-2 h-4 w-4" />
-                    Stake Tokens
+                    {isLoading ? 'Processing...' : 'Stake Tokens'}
                   </Button>
                 </TabsContent>
 

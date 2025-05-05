@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { AiFillCaretLeft } from 'react-icons/ai'
 import { Button } from '@/components/screen-ui/buttons'
 import { ActionButtonsProps } from '@/types'
-
+import { usePaymasterContext } from '@/hooks'
 
 
 
@@ -19,11 +19,22 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   confirmDisabled = false,
 }) => {
 
+  const { clearToken } = usePaymasterContext()
+  const handleClose = () => {
+    clearToken()
+    onCancel()
+  }
+
+  const handleBack = () => {
+    clearToken()
+    onBack()
+  }
+
   if (onBack && onNext) {
     return (
       <div className='absolute bottom-[-30px] left-[-30px] right-[-20px] flex justify-between p-10'>
         <Button
-          onClick={onBack}
+          onClick={handleBack}
           variant='text'
           icon={AiFillCaretLeft}
           iconPosition='left'
@@ -46,7 +57,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   if (onCancel && onConfirm) {
     return (
       <div className='absolute bottom-[-30px] left-[-30px] right-[-20px] flex justify-between p-10'>
-        <Button onClick={onCancel} variant='secondary' className='px-6 py-2'>
+        <Button onClick={handleClose} variant='secondary' className='px-6 py-2'>
           {cancelText}
         </Button>
         <Button
