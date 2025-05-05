@@ -96,12 +96,12 @@ const ListenerFarming = () => {
     // Simulate earning points for playing a farming track
     const track = farmingTracks.find(t => t.id === trackId);
     if (track) {
-      toast.success(`Started farming! Earn ${track.farmingReward} AFI tokens per minute`);
+      toast.success(`Started farming! Earn ${track.farmingReward} AFT tokens per minute`);
     }
   };
 
   const handleClaimReward = () => {
-    toast.success("Weekly reward of 150 AFI tokens claimed!");
+    toast.success("Weekly reward of 150 AFT tokens claimed!");
   };
 
   const handleBoostFarming = () => {
@@ -206,7 +206,7 @@ const ListenerFarming = () => {
                       <Headphones className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <div className="text-2xl font-bold">{farmingData.audiofiTokens} AFI</div>
+                      <div className="text-2xl font-bold">{farmingData.audiofiTokens} AFT</div>
                       <div className="text-xs text-gray-400">${(farmingData.audiofiTokens * 0.12).toFixed(2)} estimated value</div>
                     </div>
                   </div>
@@ -286,7 +286,7 @@ const ListenerFarming = () => {
                 <div className="mt-4 flex justify-between items-center">
                   <div>
                     <span className="text-sm font-medium">Challenge reward:</span>
-                    <span className="ml-1 font-bold text-primary">{farmingData.weeklyReward} AFI</span>
+                    <span className="ml-1 font-bold text-primary">{farmingData.weeklyReward} AFT</span>
                   </div>
                   <Button variant="default" className="text-sm bg-primary hover:bg-primary/90">
                     <Headphones className="h-4 w-4 mr-1" />
@@ -327,7 +327,7 @@ const ListenerFarming = () => {
                     <Progress value={farmingData.dailyGoal} className="h-2" />
                     <div className="flex justify-between mt-1">
                       <span className="text-xs text-gray-400">45/60 minutes</span>
-                      <span className="text-xs font-medium">+15 AFI</span>
+                      <span className="text-xs font-medium">+15 AFT</span>
                     </div>
                   </div>
                   
@@ -342,7 +342,7 @@ const ListenerFarming = () => {
                     <Progress value={33} className="h-2" />
                     <div className="flex justify-between mt-1">
                       <span className="text-xs text-gray-400">Listen to 2 more new artists</span>
-                      <span className="text-xs font-medium">+10 AFI</span>
+                      <span className="text-xs font-medium">+10 AFT</span>
                     </div>
                   </div>
                   
@@ -357,7 +357,7 @@ const ListenerFarming = () => {
                     <Progress value={0} className="h-2" />
                     <div className="flex justify-between mt-1">
                       <span className="text-xs text-gray-400">Share any track to complete</span>
-                      <span className="text-xs font-medium">+5 AFI</span>
+                      <span className="text-xs font-medium">+5 AFT</span>
                     </div>
                   </div>
                 </div>

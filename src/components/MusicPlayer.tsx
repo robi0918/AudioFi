@@ -70,8 +70,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ currentTrack }) => {
   const [userStake, setUserStake] = useState({
     amount: 0,
     roi: "+0.0%",
-    earningsToDate: "0 AFI",
-    position: "0 AFI",
+    earningsToDate: "0 AFT",
+    position: "0 AFT",
     share: "0%"
   });
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -170,11 +170,11 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ currentTrack }) => {
     setUserStake({
       amount: newAmount,
       roi: "+5.2%",
-      earningsToDate: (newAmount * 0.052).toFixed(2) + " AFI",
-      position: newAmount + " AFI",
+      earningsToDate: (newAmount * 0.052).toFixed(2) + " AFT",
+      position: newAmount + " AFT",
       share: ((newAmount / (parseInt((currentTrack?.totalStaked || "0").replace(/[^0-9]/g, '')) || 1)) * 100).toFixed(4) + "%"
     });
-    toast.success(`Staked ${stakeAmount} AFI on ${currentTrack?.title}!`);
+    toast.success(`Staked ${stakeAmount} AFT on ${currentTrack?.title}!`);
     setStakeAmount("100");
   };
 
@@ -442,8 +442,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ currentTrack }) => {
                       <div className="space-y-3">
                         <div>
                           <div className="flex justify-between mb-1">
-                            <div className="text-sm font-medium">Stake Amount (AFI)</div>
-                            <div className="text-xs text-gray-400">Balance: 2,500 AFI</div>
+                            <div className="text-sm font-medium">Stake Amount (AFT)</div>
+                            <div className="text-xs text-gray-400">Balance: 2,500 AFT</div>
                           </div>
                           
                           <div className="flex space-x-2">
@@ -571,7 +571,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ currentTrack }) => {
                   <Button className="w-full justify-start" asChild>
                     <a href="#" className="flex items-center">
                       <Coins className="mr-2 h-4 w-4" />
-                      Stake {currentTrack.stakers?.toLocaleString() || '0'} stakers | {currentTrack.totalStaked || '0 AFI'}
+                      Stake {currentTrack.stakers?.toLocaleString() || '0'} stakers | {currentTrack.totalStaked || '0 AFT'}
                       <ExternalLink className="ml-auto h-4 w-4" />
                     </a>
                   </Button>

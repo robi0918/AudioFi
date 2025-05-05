@@ -206,7 +206,7 @@ const FarmingRewards: React.FC = () => {
           
           <div className="flex items-center space-x-1 py-1 px-2 bg-muted rounded-md">
             <Trophy className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium">178 AFI</span>
+            <span className="text-sm font-medium">178 AFT</span>
           </div>
         </div>
         
@@ -217,7 +217,7 @@ const FarmingRewards: React.FC = () => {
           </div>
           <Progress value={75} className="h-2" />
           <div className="flex justify-between mt-2">
-            <span className="text-xs text-gray-400">Earn 30 AFI tokens when completed</span>
+            <span className="text-xs text-gray-400">Earn 30 AFT tokens when completed</span>
             <span className="text-xs text-primary font-medium">75% complete</span>
           </div>
         </div>
@@ -353,7 +353,7 @@ const FarmingRewards: React.FC = () => {
                   <div className="flex items-center space-x-1 text-xs font-medium">
                     <Trophy className="h-3 w-3 text-primary" />
                     <span className={activity.reward > 0 ? 'text-green-400' : 'text-red-400'}>
-                      {activity.reward > 0 ? `+${activity.reward}` : activity.reward} AFI
+                      {activity.reward > 0 ? `+${activity.reward}` : activity.reward} AFT
                     </span>
                   </div>
                 </div>

@@ -34,7 +34,7 @@ const Index = () => {
       marketCap: '$1.2M',
       stakers: 342,
       roi: '+18.5%',
-      totalStaked: '45,000 AFI',
+      totalStaked: '45,000 AFT',
       audioUrl: '/audio/t1.mp3'
     },
     {
@@ -50,7 +50,7 @@ const Index = () => {
       marketCap: '$850K',
       stakers: 215,
       roi: '+12.3%',
-      totalStaked: '28,000 AFI',
+      totalStaked: '28,000 AFT',
       audioUrl: '/audio/t2.mp3'
     },
     {
@@ -66,7 +66,7 @@ const Index = () => {
       marketCap: '$620K',
       stakers: 187,
       roi: '+9.7%',
-      totalStaked: '23,400 AFI',
+      totalStaked: '23,400 AFT',
       audioUrl: '/audio/t3.mp3'
     },
     {
@@ -82,7 +82,7 @@ const Index = () => {
       marketCap: '$520K',
       stakers: 134,
       roi: '+7.8%',
-      totalStaked: '19,300 AFI',
+      totalStaked: '19,300 AFT',
       audioUrl: '/audio/t4.mp3'
     },
     {
@@ -98,7 +98,7 @@ const Index = () => {
       marketCap: '$410K',
       stakers: 98,
       roi: '+6.2%',
-      totalStaked: '15,700 AFI',
+      totalStaked: '15,700 AFT',
       audioUrl: '/audio/tone.mp3'
     },
     {
@@ -114,7 +114,7 @@ const Index = () => {
       marketCap: '$380K',
       stakers: 87,
       roi: '+5.4%',
-      totalStaked: '12,800 AFI',
+      totalStaked: '12,800 AFT',
       audioUrl: '/audio/t5.mp3'
     },
     {
@@ -130,7 +130,7 @@ const Index = () => {
       marketCap: '$325K',
       stakers: 76,
       roi: '+4.9%',
-      totalStaked: '11,500 AFI',
+      totalStaked: '11,500 AFT',
       audioUrl: '/audio/t6.mp3'
     },
     {
@@ -146,7 +146,7 @@ const Index = () => {
       marketCap: '$275K',
       stakers: 58,
       roi: '+3.8%',
-      totalStaked: '9,200 AFI',
+      totalStaked: '9,200 AFT',
       audioUrl: '/audio/t7.mp3'
     }
   ];

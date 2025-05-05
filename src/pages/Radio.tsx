@@ -72,7 +72,7 @@ const RadioPage = () => {
       tokenPrice: '$0.58',
       marketCap: '$3.4M',
       roi: '+24.5%',
-      stakedAmount: '125,000 AFI',
+      stakedAmount: '125,000 AFT',
       stakers: 876
     },
     {
@@ -91,7 +91,7 @@ const RadioPage = () => {
       tokenPrice: '$0.42',
       marketCap: '$2.8M',
       roi: '+18.7%',
-      stakedAmount: '98,000 AFI',
+      stakedAmount: '98,000 AFT',
       stakers: 645
     },
     {
@@ -110,7 +110,7 @@ const RadioPage = () => {
       tokenPrice: '$0.39',
       marketCap: '$2.1M',
       roi: '+15.2%',
-      stakedAmount: '85,000 AFI',
+      stakedAmount: '85,000 AFT',
       stakers: 512
     },
     {
@@ -129,7 +129,7 @@ const RadioPage = () => {
       tokenPrice: '$0.32',
       marketCap: '$1.7M',
       roi: '+12.8%',
-      stakedAmount: '72,000 AFI',
+      stakedAmount: '72,000 AFT',
       stakers: 423
     },
     {
@@ -148,7 +148,7 @@ const RadioPage = () => {
       tokenPrice: '$0.35',
       marketCap: '$1.9M',
       roi: '+14.2%',
-      stakedAmount: '78,000 AFI',
+      stakedAmount: '78,000 AFT',
       stakers: 467
     },
     {
@@ -167,7 +167,7 @@ const RadioPage = () => {
       tokenPrice: '$0.31',
       marketCap: '$1.6M',
       roi: '+11.5%',
-      stakedAmount: '65,000 AFI',
+      stakedAmount: '65,000 AFT',
       stakers: 389
     },
     {
@@ -186,7 +186,7 @@ const RadioPage = () => {
       tokenPrice: '$0.44',
       marketCap: '$2.3M',
       roi: '+16.9%',
-      stakedAmount: '92,000 AFI',
+      stakedAmount: '92,000 AFT',
       stakers: 578
     },
     {
@@ -205,7 +205,7 @@ const RadioPage = () => {
       tokenPrice: '$0.38',
       marketCap: '$2.0M',
       roi: '+15.1%',
-      stakedAmount: '82,000 AFI',
+      stakedAmount: '82,000 AFT',
       stakers: 498
     },
     {
@@ -224,7 +224,7 @@ const RadioPage = () => {
       tokenPrice: '$0.49',
       marketCap: '$2.6M',
       roi: '+19.8%',
-      stakedAmount: '102,000 AFI',
+      stakedAmount: '102,000 AFT',
       stakers: 723
     },
     {
@@ -243,7 +243,7 @@ const RadioPage = () => {
       tokenPrice: '$0.30',
       marketCap: '$1.5M',
       roi: '+10.4%',
-      stakedAmount: '62,000 AFI',
+      stakedAmount: '62,000 AFT',
       stakers: 356
     }
   ];
@@ -282,7 +282,7 @@ const RadioPage = () => {
       [activeStation]: (userStakedRadios[activeStation] || 0) + amount
     });
     
-    toast.success(`Staked ${stakeAmount} AFI on ${currentStation?.name}!`);
+    toast.success(`Staked ${stakeAmount} AFT on ${currentStation?.name}!`);
     setShowStakeDialog(false);
     setStakeAmount("100");
   };
@@ -412,7 +412,7 @@ const RadioPage = () => {
                         <div className="flex justify-between items-center">
                           <div>
                             <div className="text-sm font-medium">Your Stake</div>
-                            <div className="text-lg font-bold">{userStakedRadios[currentStation.id]} AFI</div>
+                            <div className="text-lg font-bold">{userStakedRadios[currentStation.id]} AFT</div>
                           </div>
                           <Button size="sm" onClick={() => handleStake(currentStation.id)}>
                             <Coins className="mr-1 h-4 w-4" />
@@ -559,7 +559,7 @@ const RadioPage = () => {
                       <div className="flex justify-between items-center bg-primary/10 p-2 rounded-md border border-primary/20">
                         <div className="text-xs">
                           <span className="text-gray-400">Your Stake: </span>
-                          <span className="font-medium">{userStakedRadios[station.id]} AFI</span>
+                          <span className="font-medium">{userStakedRadios[station.id]} AFT</span>
                         </div>
                         <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => handleStake(station.id)}>
                           <Coins className="mr-1 h-3 w-3" />
@@ -639,7 +639,7 @@ const RadioPage = () => {
                               </div>
                             </div>
                             <div className="text-right">
-                              <div className="text-sm font-medium">{amount} AFI</div>
+                              <div className="text-sm font-medium">{amount} AFT</div>
                               <div className="text-xs text-green-400">{station.roi}</div>
                             </div>
                           </div>
@@ -650,13 +650,13 @@ const RadioPage = () => {
                         <div className="flex justify-between mb-1">
                           <span className="text-sm">Total Staked</span>
                           <span className="text-sm font-medium">
-                            {Object.values(userStakedRadios).reduce((a, b) => a + b, 0)} AFI
+                            {Object.values(userStakedRadios).reduce((a, b) => a + b, 0)} AFT
                           </span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm">Estimated Daily Yield</span>
                           <span className="text-sm font-medium text-green-400">
-                            +{(Object.values(userStakedRadios).reduce((a, b) => a + b, 0) * 0.0015).toFixed(2)} AFI
+                            +{(Object.values(userStakedRadios).reduce((a, b) => a + b, 0) * 0.0015).toFixed(2)} AFT
                           </span>
                         </div>
                       </div>
@@ -721,8 +721,8 @@ const RadioPage = () => {
               
               <div>
                 <div className="flex justify-between mb-1">
-                  <div className="text-sm font-medium">Stake Amount (AFI)</div>
-                  <div className="text-sm text-gray-400">Balance: 2,500 AFI</div>
+                  <div className="text-sm font-medium">Stake Amount (AFT)</div>
+                  <div className="text-sm text-gray-400">Balance: 2,500 AFT</div>
                 </div>
                 
                 <div className="flex space-x-2">
@@ -750,11 +750,11 @@ const RadioPage = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <div className="text-xs text-gray-400">Daily</div>
-                    <div className="text-sm text-green-400">+{(parseInt(stakeAmount) * 0.0015).toFixed(2)} AFI</div>
+                    <div className="text-sm text-green-400">+{(parseInt(stakeAmount) * 0.0015).toFixed(2)} AFT</div>
                   </div>
                   <div>
                     <div className="text-xs text-gray-400">Monthly</div>
-                    <div className="text-sm text-green-400">+{(parseInt(stakeAmount) * 0.0015 * 30).toFixed(2)} AFI</div>
+                    <div className="text-sm text-green-400">+{(parseInt(stakeAmount) * 0.0015 * 30).toFixed(2)} AFT</div>
                   </div>
                   <div>
                     <div className="text-xs text-gray-400">APR</div>
@@ -772,7 +772,7 @@ const RadioPage = () => {
               <div className="pt-2">
                 <Button className="w-full" onClick={handleStakeSubmit}>
                   <Coins className="mr-2 h-4 w-4" />
-                  Stake {stakeAmount} AFI
+                  Stake {stakeAmount} AFT
                 </Button>
               </div>
             </div>

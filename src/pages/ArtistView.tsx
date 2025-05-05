@@ -86,8 +86,8 @@ const ArtistView = () => {
       tracks: 32,
       verified: true,
       chains: ['Ethereum', 'Polygon', 'Nero'],
-      totalEarnings: '345,678 AFI',
-      audiofiBalance: '145,890 AFI',
+      totalEarnings: '345,678 AFT',
+      audiofiBalance: '145,890 AFT',
       marketCap: '$2.4M',
       tokenPrice: '$0.78',
       distribution: [
@@ -107,7 +107,7 @@ const ArtistView = () => {
           marketCap: '$1.2M',
           stakers: 342,
           roi: '+18.5%',
-          totalStaked: '45,000 AFI',
+          totalStaked: '45,000 AFT',
           genre: 'Hip-Hop'
         },
         {
@@ -121,7 +121,7 @@ const ArtistView = () => {
           marketCap: '$850K',
           stakers: 215,
           roi: '+14.3%',
-          totalStaked: '32,000 AFI',
+          totalStaked: '32,000 AFT',
           genre: 'Hip-Hop'
         },
         {
@@ -135,7 +135,7 @@ const ArtistView = () => {
           marketCap: '$620K',
           stakers: 187,
           roi: '+12.7%',
-          totalStaked: '28,400 AFI',
+          totalStaked: '28,400 AFT',
           genre: 'Hip-Hop'
         },
         {
@@ -149,7 +149,7 @@ const ArtistView = () => {
           marketCap: '$520K',
           stakers: 154,
           roi: '+10.8%',
-          totalStaked: '22,300 AFI',
+          totalStaked: '22,300 AFT',
           genre: 'Hip-Hop'
         }
       ],
@@ -192,8 +192,8 @@ const ArtistView = () => {
       tracks: 24,
       verified: true,
       chains: ['Ethereum', 'Polygon'],
-      totalEarnings: '267,590 AFI',
-      audiofiBalance: '98,450 AFI',
+      totalEarnings: '267,590 AFT',
+      audiofiBalance: '98,450 AFT',
       marketCap: '$1.8M',
       tokenPrice: '$0.65',
       distribution: [
@@ -212,7 +212,7 @@ const ArtistView = () => {
           marketCap: '$780K',
           stakers: 198,
           roi: '+16.3%',
-          totalStaked: '28,000 AFI',
+          totalStaked: '28,000 AFT',
           genre: 'Electronic'
         },
         {
@@ -226,7 +226,7 @@ const ArtistView = () => {
           marketCap: '$720K',
           stakers: 176,
           roi: '+15.1%',
-          totalStaked: '26,300 AFI',
+          totalStaked: '26,300 AFT',
           genre: 'Electronic'
         },
         {
@@ -240,7 +240,7 @@ const ArtistView = () => {
           marketCap: '$580K',
           stakers: 154,
           roi: '+13.7%',
-          totalStaked: '22,800 AFI',
+          totalStaked: '22,800 AFT',
           genre: 'Electronic'
         },
         {
@@ -254,7 +254,7 @@ const ArtistView = () => {
           marketCap: '$450K',
           stakers: 132,
           roi: '+11.2%',
-          totalStaked: '19,500 AFI',
+          totalStaked: '19,500 AFT',
           genre: 'Electronic'
         }
       ],
@@ -492,7 +492,7 @@ const ArtistView = () => {
                           <XAxis dataKey="date" stroke="#9CA3AF" />
                           <YAxis stroke="#9CA3AF" />
                           <Tooltip 
-                            formatter={(value) => [`${value.toLocaleString()} AFI`, 'Earnings']}
+                            formatter={(value) => [`${value.toLocaleString()} AFT`, 'Earnings']}
                             contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }}
                           />
                           <Area 
@@ -510,14 +510,14 @@ const ArtistView = () => {
                       <div className="bg-secondary p-3 rounded-lg">
                         <div className="text-xs text-gray-400 mb-1">Monthly Avg</div>
                         <div className="font-medium">
-                          {Math.round(selectedArtist.earningsHistory.reduce((acc, curr) => acc + curr.amount, 0) / 12).toLocaleString()} AFI
+                          {Math.round(selectedArtist.earningsHistory.reduce((acc, curr) => acc + curr.amount, 0) / 12).toLocaleString()} AFT
                         </div>
                       </div>
                       
                       <div className="bg-secondary p-3 rounded-lg">
                         <div className="text-xs text-gray-400 mb-1">Yearly Total</div>
                         <div className="font-medium">
-                          {selectedArtist.earningsHistory.reduce((acc, curr) => acc + curr.amount, 0).toLocaleString()} AFI
+                          {selectedArtist.earningsHistory.reduce((acc, curr) => acc + curr.amount, 0).toLocaleString()} AFT
                         </div>
                       </div>
                       

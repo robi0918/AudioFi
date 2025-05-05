@@ -180,8 +180,8 @@ const TrackCard: React.FC<TrackCardProps> = ({
       setUserStake({
         amount: parseFloat(stakedFormatted).toFixed(2),
         roi: "+5.2%",
-        earningsToDate: parseFloat(rewardFormatted).toFixed(2) + " AFI",
-        position: parseFloat(stakedFormatted).toFixed(2) + " AFI",
+        earningsToDate: parseFloat(rewardFormatted).toFixed(2) + " AFT",
+        position: parseFloat(stakedFormatted).toFixed(2) + " AFT",
         share: ((parseFloat(stakedFormatted) / parseFloat(totalStaked) * 100)).toFixed(4) + "%"
       });
     }
@@ -244,7 +244,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
 
         const result = await waitForUserOpResult();
         if (result.result === true) {
-          toast.success(`Staked ${stakeAmount} AFI on ${track.title}!`);
+          toast.success(`Staked ${stakeAmount} AFT on ${track.title}!`);
         } else if (result.transactionHash) {
           toast.error('Staking Failed!')
         }
@@ -295,7 +295,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
 
         if (result.result === true) {
           setStakeTab('stake')
-          toast.success(`Unstaked ${stakeAmount} AFI on ${track.title}!`);
+          toast.success(`Unstaked ${stakeAmount} AFT on ${track.title}!`);
         } else if (result.transactionHash) {
           toast.error('Unstaking Failed!')
         }
@@ -594,7 +594,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
                   <div className="mb-2">
                     <div className="flex justify-between text-xs mb-1">
                       <span>Your stake</span>
-                      <span>{userStake.amount} AFI</span>
+                      <span>{userStake.amount} AFT</span>
                     </div>
                     <Progress
                       value={(parseFloat(userStake.amount) / parseFloat(totalStaked)) * 100}
@@ -618,8 +618,8 @@ const TrackCard: React.FC<TrackCardProps> = ({
                 <TabsContent value="stake" className="mt-4 space-y-4">
                   <div>
                     <div className="flex justify-between mb-1">
-                      <div className="text-sm font-medium">Stake Amount (AFI)</div>
-                      <div className="text-sm text-gray-400">Balance: {myBalance} AFI</div>
+                      <div className="text-sm font-medium">Stake Amount (AFT)</div>
+                      <div className="text-sm text-gray-400">Balance: {myBalance} AFT</div>
                     </div>
 
                     <div className="flex space-x-2">
@@ -655,8 +655,8 @@ const TrackCard: React.FC<TrackCardProps> = ({
                 <TabsContent value="unstake" className="mt-4 space-y-4">
                   <div>
                     <div className="flex justify-between mb-1">
-                      <div className="text-sm font-medium">Unstake Amount (AFI)</div>
-                      <div className="text-sm text-gray-400">Staked: {userStake.amount} AFI</div>
+                      <div className="text-sm font-medium">Unstake Amount (AFT)</div>
+                      <div className="text-sm text-gray-400">Staked: {userStake.amount} AFT</div>
                     </div>
 
                     <div className="flex space-x-2">

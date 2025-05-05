@@ -79,7 +79,7 @@ const AIDiscovery = () => {
       marketCap: '$1.2M',
       stakers: 342,
       roi: '+18.5%',
-      totalStaked: '45,000 AFI'
+      totalStaked: '45,000 AFT'
     },
     {
       id: '2',
@@ -94,7 +94,7 @@ const AIDiscovery = () => {
       marketCap: '$850K',
       stakers: 215,
       roi: '+12.3%',
-      totalStaked: '28,000 AFI'
+      totalStaked: '28,000 AFT'
     },
     {
       id: '3',
@@ -109,7 +109,7 @@ const AIDiscovery = () => {
       marketCap: '$620K',
       stakers: 187,
       roi: '+9.7%',
-      totalStaked: '23,400 AFI'
+      totalStaked: '23,400 AFT'
     },
     {
       id: '4',
@@ -124,7 +124,7 @@ const AIDiscovery = () => {
       marketCap: '$520K',
       stakers: 134,
       roi: '+7.8%',
-      totalStaked: '19,300 AFI'
+      totalStaked: '19,300 AFT'
     },
     {
       id: '5',
@@ -139,7 +139,7 @@ const AIDiscovery = () => {
       marketCap: '$410K',
       stakers: 98,
       roi: '+6.2%',
-      totalStaked: '15,700 AFI'
+      totalStaked: '15,700 AFT'
     },
     {
       id: '6',
@@ -154,7 +154,7 @@ const AIDiscovery = () => {
       marketCap: '$380K',
       stakers: 87,
       roi: '+5.4%',
-      totalStaked: '12,800 AFI'
+      totalStaked: '12,800 AFT'
     },
     {
       id: '7',
@@ -169,7 +169,7 @@ const AIDiscovery = () => {
       marketCap: '$325K',
       stakers: 76,
       roi: '+4.9%',
-      totalStaked: '11,500 AFI'
+      totalStaked: '11,500 AFT'
     },
     {
       id: '8',
@@ -184,7 +184,7 @@ const AIDiscovery = () => {
       marketCap: '$275K',
       stakers: 58,
       roi: '+3.8%',
-      totalStaked: '9,200 AFI'
+      totalStaked: '9,200 AFT'
     },
     {
       id: '9',
@@ -199,7 +199,7 @@ const AIDiscovery = () => {
       marketCap: '$390K',
       stakers: 98,
       roi: '+8.1%',
-      totalStaked: '16,500 AFI'
+      totalStaked: '16,500 AFT'
     },
     {
       id: '10',
@@ -214,7 +214,7 @@ const AIDiscovery = () => {
       marketCap: '$580K',
       stakers: 156,
       roi: '+10.3%',
-      totalStaked: '21,300 AFI'
+      totalStaked: '21,300 AFT'
     },
     {
       id: '11',
@@ -229,7 +229,7 @@ const AIDiscovery = () => {
       marketCap: '$320K',
       stakers: 78,
       roi: '+6.7%',
-      totalStaked: '14,200 AFI'
+      totalStaked: '14,200 AFT'
     },
     {
       id: '12',
@@ -244,7 +244,7 @@ const AIDiscovery = () => {
       marketCap: '$290K',
       stakers: 65,
       roi: '+5.9%',
-      totalStaked: '11,900 AFI'
+      totalStaked: '11,900 AFT'
     }
   ];
   
